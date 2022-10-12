@@ -61,7 +61,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 100
+    "width": 215.5
   },
   "right": {
     "id": "b5e729d9531c8cdb",
@@ -130,7 +130,8 @@
   },
   "active": "3eb53ddffd5f6c6a",
   "lastOpenFiles": [
-    "README.md",
-    "Github note.md"
+    "Dockers.md",
+    "Github note.md",
+    "README.md"
   ]
 }

@@ -16,12 +16,9 @@ git from command line
 git --version
 
 git config --global user.name "your_username"
-
-
 git config --global user.email "your_email_address@example.com"
-
-
 git config --global --list
+
 
 
 Clone a respository
@@ -72,7 +69,6 @@ git pull <remote> <name-of-branch>
 
 git add <file or folder>
 git commit -m <comments>
-
 git checkout -b <name-of-branch>
 
 #Switch to a branch
@@ -84,11 +80,8 @@ git diff
 
 #view status
 git status
-
 git add <file or folder>
-
 git status
-
 git commit -m "Comment"
 
 #send changes to gitlab
@@ -107,17 +100,9 @@ git reset
 
 git checkout <default-branch>
 git merge <feature-branch>
-```
 
 
 
-```
-```
-```
-```
-$ git config --global user.name "your_github_username"
-$ git config --global user.email "your_github_email"
-$ git config -l
 
 
 git remote set-url origin https://<githubtoken>@github.com/<username>/<repositoryname>.git
