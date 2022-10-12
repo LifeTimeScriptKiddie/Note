@@ -1,4 +1,5 @@
-# Step 1. Understand Github
+# Note 1. Understand Github
+Goal: Open up repository via web interface.lls
 
 -   Created an open source repository
 -   Started and managed a new branch
@@ -8,7 +9,7 @@
 Resource : https://docs.github.com/en/get-started/quickstart/hello-world
 
 
-# Step 2. How to use git from command line. 
+# Note 2. Use git from command line. 
 
 git from command line
 ```
@@ -39,11 +40,8 @@ git clone https://<username>:<token>@gitlab.example.com/tanuki/awesome_project.g
 
 ```
 
-## Step 2.1  How to create Personal Access Tokens
+## Note 2.1  Create Personal Access Tokens from web
 ```
-
-
-
 
 Create Personal Access Token
 
@@ -61,9 +59,7 @@ Resource: https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
 
 
 
-
-
-## Staging
+# Note 3. Pull, Stage, Push
 ```
 
 git init 
