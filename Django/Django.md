@@ -9,12 +9,12 @@ pip3 install virtualenv
 virtualenv venv -p python3
 source venv/bin/activate
 
-![[../Pasted image 20221013151936.png]]
+![[Pasted image 20221013151936.png]]
 
 ## Starting a new project
 
 `django-admin startproject myproject`
-![[../Pasted image 20221013152215.png]]
+![[Pasted image 20221013152215.png]]
 
 -   **manage.py**: a shortcut to use the **django-admin** command-line utility. It’s used to run management commands related to our project. We will use it to run the development server, run tests, create migrations and much more.
 -   **__init__.py**: this empty file tells Python that this folder is a Python package.
@@ -93,11 +93,11 @@ total 8
 
 On Setting.py under INSTALLED_APPS variable
 
-![[../Pasted image 20221013154450.png]]
+![[Pasted image 20221013154450.png]]
 
 
 Go to boards/views.py
-![[../Pasted image 20221013155707.png]]
+![[Pasted image 20221013155707.png]]
 ```python
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -108,8 +108,8 @@ def home(request):
 
  Update urls.py
 
-![[../Pasted image 20221013162218.png]]
+![[Pasted image 20221013162218.png]]
 
 
 Then ERRORS
-![[../Pasted image 20221013162503.png]]
+![[Pasted image 20221013162503.png]]
