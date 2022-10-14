@@ -1,0 +1,284 @@
+{
+  "main": {
+    "id": "487222289b524e72",
+    "type": "split",
+    "children": [
+      {
+        "id": "a32833b1a39ca08b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a0d3e9145d999ba6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Docker and Django/2. Docker Practice 1.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "263f9a6e3399ea3a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Docker and Django/2. Docker Practice 1.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "ad7248aa7081a720",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Docker and Django/2. Docker Practice 1.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "6e031ee2db0c7b4f",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.0.0"
+              }
+            }
+          },
+          {
+            "id": "874e80a8eeb1f552",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Docker and Django/2. Docker Practice 1.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "7b27d20b6c7849ca",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "Docker and Django/Pasted image 20221013162503.png"
+              }
+            }
+          },
+          {
+            "id": "c53fc9152b4a4943",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Penetration testing/Web.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "b7880389513e7a59",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Penetration testing/Network.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "ca9e2c37ef2a29b2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Penetration testing/Pentesting 101.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "aa5709eb3564f51a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Stuff/SSL TLS.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "b1b3d47e56c9f793",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Stuff/SSL TLS.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "9aef1609b7674299",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "HackRF/HackRF.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3f382bdf462db038",
+    "type": "split",
+    "children": [
+      {
+        "id": "6abc56d8a8cea639",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "755bd8d3384b980d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "fe57d322a668b180",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "995db16e3e115f2d",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "b5e729d9531c8cdb",
+    "type": "split",
+    "children": [
+      {
+        "id": "cb1bf2d82dd8c1f7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "163db545f0cbf7d3",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Docker and Django/2. Docker Practice 1.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "1f45cb30d92a10b7",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Docker and Django/2. Docker Practice 1.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b79aa8c9adb2a761",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "fc78a6acf385023b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Docker and Django/2. Docker Practice 1.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "ribbon": {
+    "mostRecentAction": ""
+  },
+  "active": "ad7248aa7081a720",
+  "lastOpenFiles": [
+    "Docker and Django/3. Docker Practice 2.md",
+    "Docker and Django/2. Docker Practice 1.md",
+    "Docker and Django/1. Django.md",
+    "Docker and Django/0. Learning Objectives.md",
+    "README.md",
+    "Stuff/SSL TLS.md",
+    "Stuff/XSS.md",
+    "Docker and Django/Pasted image 20221013162218.png",
+    "Docker and Django/Pasted image 20221013155707.png",
+    "Docker and Django/Pasted image 20221013154450.png"
+  ]
+}
