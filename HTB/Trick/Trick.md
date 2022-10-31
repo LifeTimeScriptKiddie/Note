@@ -5,18 +5,17 @@ Target: trick.htb - 10.10.11.166
 Used tools: nmap, gobuster, ffuf, wfuzz, dig, nslookup, host, dnsrecon
 
 Vulnerability: 
-DNS set up misconfiguration revealed two pre-production webpages.
-One pre-production web page has directory traversal vulnerability. 
-The tester used directory travesal vulnerability in one web page, and gained user credentials (Username and ssh). Using a misconfiguration of the installed third party application, the tester gained system root access. 
+DNS setup misconfiguration revealed two pre-production web pages.
+One pre-production web page has a directory traversal vulnerability. 
+The tester used directory traversal vulnerability on one web page and gained user credentials (Username and ssh). The tester gained system root access using a misconfiguration of the installed third-party application. 
 
 Recommendation: 
-The most significant vulneability is the misconfiguration of DNS. The tester highly recommends restricting DNS zone transfer. 
+The most significant vulnerability is the misconfiguration of DNS. The tester highly recommends restricting DNS zone transfer. 
 
-Key take away from the box 
+Key takeaway from the box 
 1. Zone Transfer (dig, etc.)
 2. Tool options - (wfuzz vs fuzz)
 3. A quick bash scripting. 
-4. 
 
 
 # 1. Technical details
