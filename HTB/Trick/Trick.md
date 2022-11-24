@@ -1,4 +1,4 @@
-IP: 10.10.11.166
+https://raxis.com/blog/log4j-exploithttps://raxis.com/blog/log4j-exploitIP: 10.10.11.166
 
 Tester: LifeTimeScriptKiddie
 Target: trick.htb - 10.10.11.166
