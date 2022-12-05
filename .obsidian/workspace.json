@@ -1,0 +1,152 @@
+{
+  "main": {
+    "id": "e763b49feb356748",
+    "type": "split",
+    "children": [
+      {
+        "id": "632b41f421128d27",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2c8950627c6d2f5e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "HTB/Mantis/Mantis.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "8fce7746ad9772d1",
+    "type": "split",
+    "children": [
+      {
+        "id": "7a265a5a174d790a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "05b47968751e952f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "596b02990133bbb3",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "psexec",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e1dc6b98f221ff59",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "f57f2a4afd755e78",
+    "type": "split",
+    "children": [
+      {
+        "id": "3da0b5cc84b536a9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "72d9f39d8ee9d79e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "HTB/Mantis/Mantis.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "61ef7e8cc60a6656",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "HTB/Mantis/Mantis.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ff51f1bba599e0a1",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "dae6eb0c32a6e1af",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "HTB/Mantis/Mantis.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "2c8950627c6d2f5e",
+  "lastOpenFiles": [
+    "1. Goals.md",
+    "HTB/Mantis/Mantis.md",
+    "HTB/Forest/Forest.md",
+    "HTB/Active/Active - SMB, Kerberoasting.md",
+    "README.md",
+    "HTB/Logforge/LOGFORGE.md",
+    "HTB/Trick/Pasted image 20221022215820.png",
+    "HTB/RedPanda/RedPanda.md",
+    "HTB/Trick/Trick - DNS zone Transfer, Fuzzing, SSH.md",
+    "Github/Github note.md"
+  ]
+}
