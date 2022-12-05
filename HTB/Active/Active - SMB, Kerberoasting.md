@@ -120,7 +120,7 @@ GPPstillStandingStrong2k18
 
 Kerberos is one of SSO technology that authenticates service requests between two or more trusted hosts across an untrusted network. 
 
-### 2.3.1 Kerberoasting
+### 2.3.1 Kerberoasting  AS-REP
 A quick summarize. The tester used retrived credential to request SPN to KDC. The KDC verified the credential and returned TGT (AS-REP). And the TGT contains user's identification which is encrytyped with KDC secret key. 
 The tester decrypted the krb5tgs using john and rockyou.txt. 
 
