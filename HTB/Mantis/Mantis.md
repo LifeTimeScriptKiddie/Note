@@ -1,6 +1,8 @@
 Nmap --> Keberos Users brute force with kerbrute --> mssql investigation with impacket-mssqlclient, mssql gui-tool with dbeaver, User credential --> MS14-068 Kerberoasting
 
 What I learned from this case. 
+1. Username (Domain name is known but no other information is available)
+	1. Kerbrute --> Username bruteforce. 
 
 
 `https://wizard32.net/blog/knock-and-pass-kerberos-exploitation.html`

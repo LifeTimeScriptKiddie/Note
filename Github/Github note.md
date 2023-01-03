@@ -64,6 +64,10 @@ From your GitHub account, go to **Settings** => **Developer Settings** => **Pers
 Resource 1 : https://stackoverflow.com/questions/68775869/message-support-for-password-authentication-was-removed-please-use-a-personal
 
 
+```
+git remote set-url origin https://<githubtoken>@github.com/<username>/<repositoryname>.git
+```
+
 Resource 2:  https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
 
 

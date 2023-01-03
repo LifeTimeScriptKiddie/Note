@@ -8,7 +8,43 @@
         "type": "tabs",
         "children": [
           {
-            "id": "2c8950627c6d2f5e",
+            "id": "6b48f267275b10ac",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          },
+          {
+            "id": "9f4ca5a2039bbe5f",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          },
+          {
+            "id": "b548714d86d891be",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          },
+          {
+            "id": "648b71da1ba3e232",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Active Directory/Getting Username.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "7ae94b61f11da39c",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -18,8 +54,33 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "9d427d27bae29b83",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Active Directory/MS14-068.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "ddbb1688ab54d4a0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "HTB/Reels.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -85,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "HTB/Mantis/Mantis.md",
+                "file": "Active Directory/MS14-068.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "HTB/Mantis/Mantis.md",
+                "file": "Active Directory/MS14-068.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +186,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "HTB/Mantis/Mantis.md"
+                "file": "Active Directory/MS14-068.md"
               }
             }
           }
@@ -136,17 +197,27 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "2c8950627c6d2f5e",
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "9d427d27bae29b83",
   "lastOpenFiles": [
-    "1. Goals.md",
     "HTB/Mantis/Mantis.md",
-    "HTB/Forest/Forest.md",
-    "HTB/Active/Active - SMB, Kerberoasting.md",
-    "README.md",
-    "HTB/Logforge/LOGFORGE.md",
-    "HTB/Trick/Pasted image 20221022215820.png",
-    "HTB/RedPanda/RedPanda.md",
-    "HTB/Trick/Trick - DNS zone Transfer, Fuzzing, SSH.md",
-    "Github/Github note.md"
+    "DFIR/DFIR.md",
+    "Penetration testing/Web.md",
+    "Penetration testing/Network.md",
+    "SDR/HackRF/HackRF.md",
+    "Github/Github note.md",
+    "Docker and Django/2. Docker Practice 1.md",
+    "Docker and Django/1. Django.md",
+    "Docker and Django/0. Learning Objectives.md",
+    "Active Directory/Getting Username.md"
   ]
 }
