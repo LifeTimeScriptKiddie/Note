@@ -4,83 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "632b41f421128d27",
+        "id": "8a49d98977377793",
         "type": "tabs",
         "children": [
           {
-            "id": "6b48f267275b10ac",
+            "id": "0701b8dceb506576",
             "type": "leaf",
             "state": {
               "type": "empty",
               "state": {}
-            }
-          },
-          {
-            "id": "9f4ca5a2039bbe5f",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
-            "id": "b548714d86d891be",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
-            "id": "648b71da1ba3e232",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Active Directory/Getting Username.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "7ae94b61f11da39c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "HTB/Mantis/Mantis.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "9d427d27bae29b83",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Active Directory/MS14-068.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "ddbb1688ab54d4a0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "HTB/Reels.md",
-                "mode": "source",
-                "source": false
-              }
             }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "vertical"
@@ -146,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Active Directory/MS14-068.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -163,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Active Directory/MS14-068.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -185,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Active Directory/MS14-068.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -207,17 +138,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9d427d27bae29b83",
+  "active": "0701b8dceb506576",
   "lastOpenFiles": [
+    "HTB/Reels.md",
+    "Web Pentesting/1.md",
+    "README.md",
+    "Active Directory/MS14-068.md",
     "HTB/Mantis/Mantis.md",
-    "DFIR/DFIR.md",
-    "Penetration testing/Web.md",
-    "Penetration testing/Network.md",
-    "SDR/HackRF/HackRF.md",
-    "Github/Github note.md",
-    "Docker and Django/2. Docker Practice 1.md",
-    "Docker and Django/1. Django.md",
-    "Docker and Django/0. Learning Objectives.md",
-    "Active Directory/Getting Username.md"
+    "Active Directory/Getting Username.md",
+    "Stuff/SSL TLS.md",
+    "Stuff/XSS.md",
+    "SDR/FlipperZero/Flipper Zero -Wifi Dev board installation.md",
+    "Stuff/DFIR/DFIR.md"
   ]
 }
