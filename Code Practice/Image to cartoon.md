@@ -1,6 +1,13 @@
 ```
-
+import argparse
 import tensorflow as tf
+
+# Parse the command-line arguments.
+parser = argparse.ArgumentParser()
+parser.add_argument('input_image_path', type=str, help='The path to the input image.')
+parser.add_argument('style_image_path', type=str, help='The path to the style image.')
+parser.add_argument('output_image_path', type=str, help='The path to save the output image.')
+args = parser.parse_args()
 
 # Load the style transfer model.
 model = tf.keras.applications.vgg19.VGG19(include_top=False, weights='imagenet')
@@ -25,12 +32,12 @@ def total_loss(outputs):
 optimizer = tf.optimizers.Adam(learning_rate=0.02, beta_1=0.99, epsilon=1e-1)
 
 # Load the input image and style image.
-input_image = tf.keras.preprocessing.image.load_img(input_image_path)
+input_image = tf.keras.preprocessing.image.load_img(args.input_image_path)
 input_image = tf.keras.preprocessing.image.img_to_array(input_image)
 input_image = tf.keras.applications.vgg19.preprocess_input(input_image)
 input_image = tf.expand_dims(input_image, axis=0)
 
-style_image = tf.keras.preprocessing.image.load_img(style_image_path)
+style_image = tf.keras.preprocessing.image.load_img(args.style_image_path)
 style_image = tf.keras.preprocessing.image.img_to_array(style_image)
 style_image = tf.keras.applications.vgg19.preprocess_input(style_image)
 style_image = tf.expand_dims(style_image, axis=0)
@@ -47,15 +54,6 @@ total_loss = tf.zeros(shape=())
 
 # Perform gradient descent.
 for i in range(num_iterations):
-    with tf.GradientTape() as tape:
-        outputs = model(input_image)
-        total_loss = total_loss(outputs)
-    grads = tape.gradient(total_loss, model.trainable_variables)
-    optimizer.apply_gradients(zip(grads, model.trainable_variables))
+    with tf.Gradient
 
-# Get the resulting image.
-output_image = tf.keras.applications.vgg19.deprocess_input(input_image.numpy()[0])
-
-# Save the output image.
-tf.keras.preprocessing.image
 ```
